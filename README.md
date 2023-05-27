@@ -1,2 +1,2 @@
-# TCP-Server
-A simple TCP server exercise taken from Black Hat Python
+# TCP-Client-and-Server
+A simple TCP client and server exercise taken from Black Hat Python

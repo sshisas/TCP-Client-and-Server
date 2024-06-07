@@ -35,19 +35,15 @@ server.listen(5)
 print("[*] Listening on %s:%d" % (bind_ip, bind_port))
 
 
-# This is our client handling thread
 def handle_client(client_socket):
     while True:
-        # Receive message from the client
         request = client_socket.recv(1024).decode('utf-8')
         if not request:
             break
         print("[*] Received: %s" % request)
         
-        # Create MD5 hash of the message
         md5_hash = hashlib.md5(request.encode('utf-8')).hexdigest()
         
-        # Send back the MD5 hash to the client
         client_socket.send(md5_hash.encode('utf-8'))
 
         print("[*] Sent MD5 hash: %s" % md5_hash)
@@ -56,10 +52,8 @@ def handle_client(client_socket):
 
 
 while True:
-    # Wait for a connection
     client, addr = server.accept()
     print("[*] Accepted connection from %s:%d" % (addr[0],addr[1]))
 
-    # Spin up a client thread to handle incoming data
     client_handler = threading.Thread(target=handle_client, args=(client,))
     client_handler.start()
